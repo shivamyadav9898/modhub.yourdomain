@@ -1,0 +1,116 @@
+Build a fully functional app store web application with a real backend.
+
+Use:
+- Supabase (database + authentication)
+- React + Tailwind CSS
+
+--------------------------------------------------
+
+🔐 AUTH SYSTEM (IMPORTANT)
+
+- Create admin login system using Supabase Auth
+- Only admin can access admin panel
+- Admin credentials:
+  Email: admin@app.com
+  Password: shivamyadav9898
+
+- Normal users do not need login
+
+--------------------------------------------------
+
+📦 DATABASE SETUP (Supabase)
+
+Create a table: apps
+
+Fields:
+- id (auto)
+- name (text)
+- logo (text URL)
+- screenshots (array of URLs)
+- download (text URL)
+- created_at (timestamp)
+
+--------------------------------------------------
+
+⚙️ ADMIN PANEL
+
+Features:
+- Login required
+- Add new app form
+
+Fields:
+- App Name
+- Logo URL
+- Screenshots URLs (2–5)
+- Download URL
+
+Actions:
+- Insert data into Supabase database
+- Show success message
+- Clear form after submit
+
+--------------------------------------------------
+
+🏠 USER SIDE (HOME PAGE)
+
+- Fetch all apps from Supabase
+- Display in card layout
+
+Each card shows:
+- App logo
+- App name
+- First screenshot preview
+- Download button
+
+--------------------------------------------------
+
+📄 APP DETAILS PAGE
+
+When user clicks app:
+
+Show:
+- Large logo
+- All screenshots (slider)
+- App name
+- Download button
+
+--------------------------------------------------
+
+⬇ DOWNLOAD SYSTEM
+
+- Clicking download opens provided URL
+- If Google Drive → direct download
+
+--------------------------------------------------
+
+🎨 UI DESIGN
+
+- Dark theme (black + blue/purple gradient)
+- Card-based layout
+- Rounded corners
+- Smooth animations
+- Mobile responsive
+
+--------------------------------------------------
+
+⚡ EXTRA FEATURES
+
+- Loading spinner while fetching data
+- Error handling
+- Empty state (no apps)
+
+--------------------------------------------------
+
+🔒 SECURITY
+
+- Admin panel route protected
+- Only logged-in admin can add apps
+- Users cannot access admin panel
+
+--------------------------------------------------
+
+🎯 FINAL
+
+- Connect frontend with Supabase
+- Ensure real-time updates
+- Make everything fully functional

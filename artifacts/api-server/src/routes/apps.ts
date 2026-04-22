@@ -8,6 +8,7 @@ import {
   DeleteAppParams,
   RegisterDownloadParams,
 } from "@workspace/api-zod";
+import { requireAdmin } from "./admin";
 
 const router: IRouter = Router();
 
@@ -81,7 +82,7 @@ router.get("/apps/:id", async (req, res) => {
   res.json(row);
 });
 
-router.post("/apps", async (req, res) => {
+router.post("/apps", requireAdmin, async (req, res) => {
   const body = CreateAppBody.parse(req.body);
   const [row] = await db
     .insert(appsTable)
@@ -101,7 +102,7 @@ router.post("/apps", async (req, res) => {
   res.status(201).json(row);
 });
 
-router.delete("/apps/:id", async (req, res) => {
+router.delete("/apps/:id", requireAdmin, async (req, res) => {
   const { id } = DeleteAppParams.parse(req.params);
   await db.delete(appsTable).where(eq(appsTable.id, id));
   res.status(204).end();

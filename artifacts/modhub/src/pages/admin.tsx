@@ -4,7 +4,9 @@ import * as z from "zod";
 import { useCreateApp, useListApps, useDeleteApp, getListAppsQueryKey } from "@workspace/api-client-react";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { Shield, Plus, Trash2, Image as ImageIcon } from "lucide-react";
+import { Shield, Plus, Trash2, Image as ImageIcon, LogOut, Loader2 } from "lucide-react";
+import { useAdmin } from "@/hooks/use-admin";
+import AdminLogin from "./admin-login";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -41,6 +43,24 @@ const formSchema = z.object({
 });
 
 export default function Admin() {
+  const { isAdmin, loading, logout, email } = useAdmin();
+
+  if (loading) {
+    return (
+      <div className="min-h-[60vh] flex items-center justify-center">
+        <Loader2 className="w-8 h-8 animate-spin text-primary" />
+      </div>
+    );
+  }
+
+  if (!isAdmin) {
+    return <AdminLogin />;
+  }
+
+  return <AdminPanel onLogout={logout} email={email} />;
+}
+
+function AdminPanel({ onLogout, email }: { onLogout: () => void; email?: string }) {
   const queryClient = useQueryClient();
   const { data: apps, isLoading: appsLoading } = useListApps();
   const createApp = useCreateApp();
@@ -100,14 +120,26 @@ export default function Admin() {
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-5xl">
-      <div className="flex items-center gap-3 mb-8">
-        <div className="w-12 h-12 rounded-xl bg-gradient-brand flex items-center justify-center text-white">
-          <Shield className="w-6 h-6" />
+      <div className="flex items-center justify-between gap-3 mb-8">
+        <div className="flex items-center gap-3">
+          <div className="w-12 h-12 rounded-xl bg-gradient-brand flex items-center justify-center text-white">
+            <Shield className="w-6 h-6" />
+          </div>
+          <div>
+            <h1 className="text-3xl font-bold">Admin Dashboard</h1>
+            <p className="text-muted-foreground">
+              {email ? `Signed in as ${email}` : "Manage apps and platform settings"}
+            </p>
+          </div>
         </div>
-        <div>
-          <h1 className="text-3xl font-bold">Admin Dashboard</h1>
-          <p className="text-muted-foreground">Manage apps and platform settings</p>
-        </div>
+        <Button
+          variant="outline"
+          onClick={onLogout}
+          className="border-white/15 hover:bg-white/5"
+        >
+          <LogOut className="w-4 h-4 mr-2" />
+          Sign Out
+        </Button>
       </div>
 
       <div className="grid md:grid-cols-[2fr_1fr] gap-8">
