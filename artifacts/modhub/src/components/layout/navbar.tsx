@@ -1,98 +1,129 @@
-import React from "react";
 import { Link, useLocation } from "wouter";
-import { Search, Heart, Shield, Home, Grid, Sun, Moon, Zap } from "lucide-react";
+import { useState } from "react";
+import { Heart, Shield, Home, Grid, Sun, Moon, Zap, Settings, X } from "lucide-react";
 import { useTheme } from "@/hooks/use-theme";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+  SheetClose,
+} from "@/components/ui/sheet";
+
+type NavItem = {
+  href: string;
+  label: string;
+  icon: React.ComponentType<{ className?: string }>;
+};
+
+const NAV_ITEMS: NavItem[] = [
+  { href: "/", label: "Home", icon: Home },
+  { href: "/categories", label: "Categories", icon: Grid },
+  { href: "/favorites", label: "Favorites", icon: Heart },
+  { href: "/admin", label: "Security", icon: Shield },
+];
 
 export function Navbar() {
-  const [location, setLocation] = useLocation();
+  const [location] = useLocation();
   const { theme, toggleTheme } = useTheme();
-
-  const handleSearchClick = () => {
-    if (location !== "/search") {
-      setLocation("/search");
-    }
-  };
+  const [open, setOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-50 w-full glassmorphism">
-      <div className="container mx-auto px-3 sm:px-4 h-16 flex items-center justify-between gap-2 sm:gap-4">
-        <Link href="/" className="flex items-center gap-2 flex-shrink-0 cursor-pointer group">
+      <div className="container mx-auto px-4 h-16 flex items-center justify-between gap-4">
+        <Link href="/" className="flex items-center gap-2.5 flex-shrink-0 cursor-pointer group">
           <div className="w-9 h-9 rounded-lg bg-gradient-brand flex items-center justify-center text-white font-bold group-hover:shadow-[0_0_15px_rgba(124,58,237,0.5)] transition-all">
             <Zap className="w-5 h-5" />
           </div>
-          <span className="font-extrabold text-lg sm:text-xl tracking-tight text-gradient hidden sm:inline-block">
+          <span className="font-extrabold text-lg sm:text-xl tracking-tight text-gradient">
             Hitler Mod
           </span>
         </Link>
 
-        <div className="flex-1 min-w-0 max-w-xl mx-1 sm:mx-4">
-          <div className="relative group">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
-            <Input
-              placeholder="Search apps..."
-              className="pl-10 bg-black/20 border-white/10 focus-visible:border-primary/50 focus-visible:ring-primary/20 rounded-full h-10 w-full text-sm"
-              onClick={handleSearchClick}
-              readOnly={location !== "/search"}
-            />
-          </div>
-        </div>
+        <Sheet open={open} onOpenChange={setOpen}>
+          <SheetTrigger asChild>
+            <Button
+              variant="ghost"
+              size="icon"
+              aria-label="Open settings menu"
+              className="rounded-full h-10 w-10 bg-gradient-brand text-white border-0 shadow-[0_0_18px_rgba(124,58,237,0.55)] hover:shadow-[0_0_28px_rgba(124,58,237,0.85)] transition-shadow"
+            >
+              <Settings className="w-5 h-5" />
+            </Button>
+          </SheetTrigger>
+          <SheetContent
+            side="right"
+            className="w-[88vw] max-w-sm p-0 border-l border-white/10 bg-[#0B0F1A]/95 backdrop-blur-xl text-foreground"
+          >
+            <SheetHeader className="px-6 py-5 border-b border-white/10 flex-row items-center justify-between space-y-0">
+              <SheetTitle className="text-lg font-bold flex items-center gap-2 text-gradient">
+                <Settings className="w-5 h-5 text-primary" />
+                Settings
+              </SheetTitle>
+              <SheetClose asChild>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="rounded-full h-9 w-9 hover:bg-white/5"
+                  aria-label="Close menu"
+                >
+                  <X className="w-4 h-4" />
+                </Button>
+              </SheetClose>
+            </SheetHeader>
 
-        <nav className="flex items-center gap-0.5 sm:gap-2 flex-shrink-0">
-          <Link href="/" className="hidden md:block">
-            <Button variant={location === "/" ? "secondary" : "ghost"} size="sm" className={location === "/" ? "bg-gradient-brand text-white border-0" : ""}>
-              <Home className="w-4 h-4 mr-2" />
-              Home
-            </Button>
-          </Link>
-          <Link href="/categories" className="hidden md:block">
-            <Button variant={location === "/categories" ? "secondary" : "ghost"} size="sm" className={location === "/categories" ? "bg-gradient-brand text-white border-0" : ""}>
-              <Grid className="w-4 h-4 mr-2" />
-              Categories
-            </Button>
-          </Link>
-          <Link href="/favorites" className="hidden sm:block">
-            <Button variant={location === "/favorites" ? "secondary" : "ghost"} size="icon" className={location === "/favorites" ? "bg-gradient-brand text-white border-0 rounded-full" : "rounded-full"}>
-              <Heart className="w-4 h-4" />
-            </Button>
-          </Link>
-          <Link href="/admin">
-            <Button variant={location === "/admin" ? "secondary" : "ghost"} size="icon" className={`${location === "/admin" ? "bg-gradient-brand text-white border-0" : ""} rounded-full h-9 w-9`}>
-              <Shield className="w-4 h-4" />
-            </Button>
-          </Link>
-          <Button variant="ghost" size="icon" onClick={toggleTheme} className="rounded-full h-9 w-9">
-            {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-          </Button>
-        </nav>
-      </div>
+            <nav className="flex flex-col p-4 gap-1.5">
+              {NAV_ITEMS.map(({ href, label, icon: Icon }) => {
+                const active = location === href;
+                return (
+                  <Link key={href} href={href} onClick={() => setOpen(false)}>
+                    <div
+                      className={`group flex items-center gap-3 px-4 py-3 rounded-xl cursor-pointer transition-all border ${
+                        active
+                          ? "bg-gradient-brand text-white border-transparent shadow-[0_0_20px_rgba(124,58,237,0.45)]"
+                          : "bg-white/[0.03] border-white/10 text-foreground hover:bg-white/[0.07] hover:border-primary/40"
+                      }`}
+                    >
+                      <div
+                        className={`w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 ${
+                          active ? "bg-white/15" : "bg-primary/10 text-primary"
+                        }`}
+                      >
+                        <Icon className="w-4 h-4" />
+                      </div>
+                      <span className="font-medium text-sm">{label}</span>
+                    </div>
+                  </Link>
+                );
+              })}
 
-      {/* Mobile bottom nav */}
-      <div
-        className="md:hidden fixed bottom-0 left-0 right-0 glassmorphism border-t border-white/10 z-50 px-2 py-2 flex justify-around"
-        style={{ paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 0.5rem)" }}
-      >
-        <Link href="/">
-          <Button variant="ghost" size="icon" className={`h-12 w-12 ${location === "/" ? "text-primary" : "text-muted-foreground"}`}>
-            <Home className="w-5 h-5" />
-          </Button>
-        </Link>
-        <Link href="/search">
-          <Button variant="ghost" size="icon" className={`h-12 w-12 ${location === "/search" ? "text-primary" : "text-muted-foreground"}`}>
-            <Search className="w-5 h-5" />
-          </Button>
-        </Link>
-        <Link href="/categories">
-          <Button variant="ghost" size="icon" className={`h-12 w-12 ${location === "/categories" ? "text-primary" : "text-muted-foreground"}`}>
-            <Grid className="w-5 h-5" />
-          </Button>
-        </Link>
-        <Link href="/favorites">
-          <Button variant="ghost" size="icon" className={`h-12 w-12 ${location === "/favorites" ? "text-primary" : "text-muted-foreground"}`}>
-            <Heart className="w-5 h-5" />
-          </Button>
-        </Link>
+              <button
+                type="button"
+                onClick={toggleTheme}
+                className="group flex items-center justify-between gap-3 px-4 py-3 rounded-xl cursor-pointer transition-all border bg-white/[0.03] border-white/10 hover:bg-white/[0.07] hover:border-primary/40 mt-1 text-left"
+              >
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 bg-primary/10 text-primary">
+                    {theme === "dark" ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
+                  </div>
+                  <div className="min-w-0">
+                    <p className="font-medium text-sm">Theme</p>
+                    <p className="text-xs text-muted-foreground capitalize">{theme} mode</p>
+                  </div>
+                </div>
+                <span className="text-xs px-3 py-1 rounded-full bg-primary/15 text-primary font-medium">
+                  {theme === "dark" ? "Dark" : "Light"}
+                </span>
+              </button>
+            </nav>
+
+            <div className="px-6 py-4 mt-auto border-t border-white/10 text-center text-xs text-muted-foreground">
+              Hitler Mod &middot; Premium App Store
+            </div>
+          </SheetContent>
+        </Sheet>
       </div>
     </header>
   );
