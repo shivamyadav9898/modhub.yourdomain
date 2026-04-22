@@ -120,14 +120,14 @@ function AdminPanel({ onLogout, email }: { onLogout: () => void; email?: string 
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-5xl">
-      <div className="flex items-center justify-between gap-3 mb-8">
-        <div className="flex items-center gap-3">
-          <div className="w-12 h-12 rounded-xl bg-gradient-brand flex items-center justify-center text-white">
-            <Shield className="w-6 h-6" />
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
+        <div className="flex items-center gap-3 min-w-0">
+          <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-gradient-brand flex items-center justify-center text-white flex-shrink-0">
+            <Shield className="w-5 h-5 sm:w-6 sm:h-6" />
           </div>
-          <div>
-            <h1 className="text-3xl font-bold">Admin Dashboard</h1>
-            <p className="text-muted-foreground">
+          <div className="min-w-0">
+            <h1 className="text-2xl sm:text-3xl font-bold">Admin Dashboard</h1>
+            <p className="text-sm text-muted-foreground truncate">
               {email ? `Signed in as ${email}` : "Manage apps and platform settings"}
             </p>
           </div>
@@ -135,7 +135,7 @@ function AdminPanel({ onLogout, email }: { onLogout: () => void; email?: string 
         <Button
           variant="outline"
           onClick={onLogout}
-          className="border-white/15 hover:bg-white/5"
+          className="border-white/15 hover:bg-white/5 w-full sm:w-auto h-11"
         >
           <LogOut className="w-4 h-4 mr-2" />
           Sign Out
@@ -318,9 +318,9 @@ function AdminPanel({ onLogout, email }: { onLogout: () => void; email?: string 
                   )}
                 />
 
-                <Button 
-                  type="submit" 
-                  className="w-full bg-gradient-brand text-white" 
+                <Button
+                  type="submit"
+                  className="w-full bg-gradient-brand text-white h-12 text-base font-semibold"
                   disabled={createApp.isPending}
                 >
                   {createApp.isPending ? "Creating..." : "Publish App"}

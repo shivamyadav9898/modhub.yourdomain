@@ -30,35 +30,36 @@ export default function Home() {
   };
 
   return (
-    <div className="w-full flex flex-col gap-12 pb-20">
+    <div className="w-full flex flex-col gap-8 sm:gap-12 pb-20">
       {/* Hero Section */}
       <section className="relative w-full overflow-hidden hero-bg border-b border-white/5">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/20 via-transparent to-transparent"></div>
-        <div className="container mx-auto px-4 py-20 relative z-10 flex flex-col items-center text-center">
+        <div className="container mx-auto px-4 py-12 sm:py-16 md:py-20 relative z-10 flex flex-col items-center text-center">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
+            className="w-full"
           >
-            <h1 className="text-5xl md:text-7xl font-extrabold mb-6 tracking-tight">
+            <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold mb-4 sm:mb-6 tracking-tight">
               <span className="text-gradient">Hitler Mod</span>
             </h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-10">
+            <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8 sm:mb-10 px-2">
               The premium destination for the best apps, games, and mods. Discover curated content with guaranteed safety.
             </p>
           </motion.div>
 
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="w-full max-w-2xl mb-12"
+            className="w-full max-w-2xl mb-8 sm:mb-12"
           >
             <form onSubmit={handleSearch} className="relative group">
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground group-focus-within:text-primary transition-colors" />
-              <Input 
-                placeholder="Search premium apps and mods..."
-                className="pl-12 h-14 text-lg bg-black/40 border-white/10 rounded-full focus-visible:border-primary/50 focus-visible:ring-primary/20 glassmorphism"
+              <Input
+                placeholder="Search apps and mods..."
+                className="pl-12 h-12 sm:h-14 text-base sm:text-lg bg-black/40 border-white/10 rounded-full focus-visible:border-primary/50 focus-visible:ring-primary/20 glassmorphism w-full"
                 onClick={() => setLocation("/search")}
                 readOnly
               />

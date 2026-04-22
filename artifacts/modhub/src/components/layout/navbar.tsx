@@ -17,29 +17,29 @@ export function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 w-full glassmorphism">
-      <div className="container mx-auto px-4 h-16 flex items-center justify-between gap-4">
+      <div className="container mx-auto px-3 sm:px-4 h-16 flex items-center justify-between gap-2 sm:gap-4">
         <Link href="/" className="flex items-center gap-2 flex-shrink-0 cursor-pointer group">
-          <div className="w-8 h-8 rounded-lg bg-gradient-brand flex items-center justify-center text-white font-bold group-hover:shadow-[0_0_15px_rgba(124,58,237,0.5)] transition-all">
+          <div className="w-9 h-9 rounded-lg bg-gradient-brand flex items-center justify-center text-white font-bold group-hover:shadow-[0_0_15px_rgba(124,58,237,0.5)] transition-all">
             <Zap className="w-5 h-5" />
           </div>
-          <span className="font-extrabold text-xl tracking-tight text-gradient hidden sm:inline-block">
+          <span className="font-extrabold text-lg sm:text-xl tracking-tight text-gradient hidden sm:inline-block">
             Hitler Mod
           </span>
         </Link>
 
-        <div className="flex-1 max-w-xl mx-4">
+        <div className="flex-1 min-w-0 max-w-xl mx-1 sm:mx-4">
           <div className="relative group">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
             <Input
-              placeholder="Search apps, games, mods..."
-              className="pl-10 bg-black/20 border-white/10 focus-visible:border-primary/50 focus-visible:ring-primary/20 rounded-full h-10 w-full"
+              placeholder="Search apps..."
+              className="pl-10 bg-black/20 border-white/10 focus-visible:border-primary/50 focus-visible:ring-primary/20 rounded-full h-10 w-full text-sm"
               onClick={handleSearchClick}
               readOnly={location !== "/search"}
             />
           </div>
         </div>
 
-        <nav className="flex items-center gap-1 sm:gap-2">
+        <nav className="flex items-center gap-0.5 sm:gap-2 flex-shrink-0">
           <Link href="/" className="hidden md:block">
             <Button variant={location === "/" ? "secondary" : "ghost"} size="sm" className={location === "/" ? "bg-gradient-brand text-white border-0" : ""}>
               <Home className="w-4 h-4 mr-2" />
@@ -52,37 +52,45 @@ export function Navbar() {
               Categories
             </Button>
           </Link>
-          <Link href="/favorites">
+          <Link href="/favorites" className="hidden sm:block">
             <Button variant={location === "/favorites" ? "secondary" : "ghost"} size="icon" className={location === "/favorites" ? "bg-gradient-brand text-white border-0 rounded-full" : "rounded-full"}>
               <Heart className="w-4 h-4" />
             </Button>
           </Link>
           <Link href="/admin">
-            <Button variant={location === "/admin" ? "secondary" : "ghost"} size="icon" className={location === "/admin" ? "bg-gradient-brand text-white border-0 rounded-full" : "rounded-full"}>
+            <Button variant={location === "/admin" ? "secondary" : "ghost"} size="icon" className={`${location === "/admin" ? "bg-gradient-brand text-white border-0" : ""} rounded-full h-9 w-9`}>
               <Shield className="w-4 h-4" />
             </Button>
           </Link>
-          <Button variant="ghost" size="icon" onClick={toggleTheme} className="rounded-full">
+          <Button variant="ghost" size="icon" onClick={toggleTheme} className="rounded-full h-9 w-9">
             {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
           </Button>
         </nav>
       </div>
 
       {/* Mobile bottom nav */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 glassmorphism border-t border-white/10 z-50 px-4 py-2 flex justify-around">
+      <div
+        className="md:hidden fixed bottom-0 left-0 right-0 glassmorphism border-t border-white/10 z-50 px-2 py-2 flex justify-around"
+        style={{ paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 0.5rem)" }}
+      >
         <Link href="/">
-          <Button variant="ghost" size="icon" className={location === "/" ? "text-primary" : "text-muted-foreground"}>
+          <Button variant="ghost" size="icon" className={`h-12 w-12 ${location === "/" ? "text-primary" : "text-muted-foreground"}`}>
             <Home className="w-5 h-5" />
           </Button>
         </Link>
         <Link href="/search">
-          <Button variant="ghost" size="icon" className={location === "/search" ? "text-primary" : "text-muted-foreground"}>
+          <Button variant="ghost" size="icon" className={`h-12 w-12 ${location === "/search" ? "text-primary" : "text-muted-foreground"}`}>
             <Search className="w-5 h-5" />
           </Button>
         </Link>
         <Link href="/categories">
-          <Button variant="ghost" size="icon" className={location === "/categories" ? "text-primary" : "text-muted-foreground"}>
+          <Button variant="ghost" size="icon" className={`h-12 w-12 ${location === "/categories" ? "text-primary" : "text-muted-foreground"}`}>
             <Grid className="w-5 h-5" />
+          </Button>
+        </Link>
+        <Link href="/favorites">
+          <Button variant="ghost" size="icon" className={`h-12 w-12 ${location === "/favorites" ? "text-primary" : "text-muted-foreground"}`}>
+            <Heart className="w-5 h-5" />
           </Button>
         </Link>
       </div>

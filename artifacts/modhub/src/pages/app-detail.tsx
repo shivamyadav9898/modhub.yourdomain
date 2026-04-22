@@ -140,25 +140,25 @@ export default function AppDetail() {
               </div>
             </div>
 
-            <div className="flex items-center gap-4">
-              <Button 
+            <div className="flex items-center gap-3 w-full">
+              <Button
                 onClick={handleDownload}
-                size="lg" 
-                className="bg-gradient-brand text-white border-0 shadow-[0_0_20px_rgba(79,70,229,0.3)] hover:shadow-[0_0_30px_rgba(79,70,229,0.5)] transition-all rounded-full px-8 text-lg h-14"
+                size="lg"
+                className="bg-gradient-brand text-white border-0 shadow-[0_0_20px_rgba(79,70,229,0.3)] hover:shadow-[0_0_30px_rgba(79,70,229,0.5)] transition-all rounded-full px-6 sm:px-8 text-base sm:text-lg h-14 flex-1 sm:flex-none"
                 disabled={registerDownload.isPending}
               >
                 <Download className="w-5 h-5 mr-2" />
                 {registerDownload.isPending ? "Starting..." : "Download APK"}
               </Button>
-              <Button 
-                variant="outline" 
-                size="icon" 
-                className={`h-14 w-14 rounded-full glassmorphism ${favorite ? "text-red-500 border-red-500/30 bg-red-500/10" : ""}`}
+              <Button
+                variant="outline"
+                size="icon"
+                className={`h-14 w-14 rounded-full glassmorphism flex-shrink-0 ${favorite ? "text-red-500 border-red-500/30 bg-red-500/10" : ""}`}
                 onClick={() => toggleFavorite(app.id)}
               >
                 <Heart className="w-6 h-6" fill={favorite ? "currentColor" : "none"} />
               </Button>
-              <Button variant="outline" size="icon" className="h-14 w-14 rounded-full glassmorphism">
+              <Button variant="outline" size="icon" className="h-14 w-14 rounded-full glassmorphism flex-shrink-0 hidden sm:inline-flex">
                 <Share2 className="w-5 h-5" />
               </Button>
             </div>
