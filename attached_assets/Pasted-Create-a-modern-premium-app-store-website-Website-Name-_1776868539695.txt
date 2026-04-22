@@ -1,0 +1,106 @@
+Create a modern, premium app store website.
+
+Website Name: ModHub
+
+Purpose:
+This website allows users to browse apps, view details, and download apps using a direct URL (Google Drive or external link).
+
+Design Requirements:
+- Dark theme (black + blue/purple gradient)
+- Modern UI like Google Play Store
+- Glassmorphism effect
+- Smooth animations and hover effects
+- Fully responsive (mobile + desktop)
+
+--------------------------------------------------
+
+MAIN FEATURES:
+
+1. Home Page:
+- Top navbar with logo + search bar
+- Featured apps section
+- Trending apps section
+- Latest apps section
+- App cards (logo, name, category, rating, download button)
+
+2. Search System:
+- Real-time search
+- Filter apps by name
+- Show results instantly
+
+3. Categories Page:
+- Categories like Gaming, Tools, Entertainment, Education
+- Grid layout
+- Click category → show apps
+
+4. App Details Page:
+- Large app logo
+- App name
+- Rating and size
+- Screenshots slider (horizontal scroll)
+- Description (expand/collapse)
+- Download button
+
+5. Download System:
+- Admin provides URL
+- When user clicks download → open link
+- Support Google Drive direct download
+
+6. Favorites System:
+- User can save apps
+- Stored in LocalStorage
+- Favorites page
+
+7. Theme Toggle:
+- Dark / Light mode switch
+
+--------------------------------------------------
+
+ADMIN PANEL:
+
+- Add new app
+- Fields:
+  - App Name
+  - Logo URL
+  - Screenshots URLs (multiple)
+  - Description
+  - Category
+  - Download URL (Google Drive)
+
+- Remove APK upload system
+- Use only URL-based system
+
+--------------------------------------------------
+
+UI/UX DETAILS:
+
+- Rounded cards
+- Shadow + glow effects
+- Smooth transitions
+- Loading skeleton animation
+- Modern buttons with hover effect
+
+--------------------------------------------------
+
+TECH STACK:
+
+- React (Vite)
+- Tailwind CSS
+- React Router
+- Axios
+- LocalStorage
+
+--------------------------------------------------
+
+FINAL TASK:
+
+- Connect all pages
+- Fix bugs
+- Optimize performance
+- Make production-ready
+
+--------------------------------------------------
+
+IMPORTANT:
+
+Make the UI look like a premium app store dashboard with modern design, clean layout, and smooth animations.
